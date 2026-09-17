@@ -14,18 +14,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class PostService {
+public class PostWriteUseCase {
 	private final PostRepository postRepository;
 	private final EventPublisher eventPublisher;
-
-	public long count() {
-		return postRepository.count();
-	}
 
 	public Post write(Member author, String title, String content) {
 		Post post = postRepository.save(new Post(author, title, content));
 
-		// TODO: 이벤트 수정
 		eventPublisher.publish(
 			new PostCreatedEvent(
 				new PostDto(post)
@@ -35,7 +30,4 @@ public class PostService {
 		return post;
 	}
 
-	public Optional<Post> findById(int id) {
-		return postRepository.findById(id);
-	}
 }
