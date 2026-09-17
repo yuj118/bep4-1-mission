@@ -1,5 +1,7 @@
 package com.back.service;
 
+import java.util.Optional;
+
 import com.back.entity.Member;
 import com.back.entity.Post;
 import com.back.repository.PostRepository;
@@ -19,5 +21,9 @@ public class PostService {
 		Post post = new Post(author, title, content);
 
 		return postRepository.save(post);
+	}
+
+	public Optional<Post> findById(int id) {
+		return postRepository.findById(id);
 	}
 }
